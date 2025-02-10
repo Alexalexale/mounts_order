@@ -1,7 +1,15 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.2'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.flywaydb.flyway' version '6.3.2'
     id 'com.diffplug.spotless' version '7.0.2'
 }
 
@@ -19,6 +27,22 @@ repositories {
 
 ext {
     set('springCloudVersion', "2024.0.0")
+}
+
+dependencies {
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-database-oracle'
+    implementation 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
+}
+
+flyway {
+    url = 'jdbc:oracle:thin:@localhost:1521:xe'
+    user = 'ORDER_ADM'
+    password = 'ORDER_ADM'
+    schemas = ['ORDER_ADM']
+    locations = ['filesystem:database/migrations']
+    baselineOnMigrate = true
+    validateOnMigrate = true
 }
 
 subprojects {
@@ -56,9 +80,7 @@ subprojects {
         testImplementation 'org.springframework.amqp:spring-rabbit-test'
 
         /** DB **/
-        implementation 'org.flywaydb:flyway-core'
-        implementation 'org.flywaydb:flyway-database-oracle'
-        runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+        implementation 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
 
         /** TEST **/
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

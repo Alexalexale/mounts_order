@@ -7,8 +7,8 @@ spring:
     connection-test-query: select 1 from dual
     test-on-borrow: true
     url: jdbc:oracle:thin:@localhost:1521:xe
-    username: REFUNDCALCUBR
-    password: ps654321
+    username: ORDER_ADM
+    password: ORDER_ADM
     hikari:
       maximum-pool-size: 20
       keepaliveTime: 60000
@@ -17,7 +17,7 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.OracleDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 
 hystrix:

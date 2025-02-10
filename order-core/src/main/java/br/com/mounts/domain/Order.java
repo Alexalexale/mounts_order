@@ -26,7 +26,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @ToString
-@Table(name = "ORDER")
+@Table(name = "ORDERS")
 @NoArgsConstructor(access = AccessLevel.MODULE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Order {
@@ -45,7 +45,6 @@ public class Order {
   @EqualsAndHashCode.Include
   private UUID orderIdentify;
 
-  @Id
   @Getter(value = AccessLevel.PUBLIC)
   @Column(name = "IDT_CLIENT", nullable = false)
   private UUID clientIdentify;

@@ -8,3 +8,5 @@ pluginManagement {
 rootProject.name = 'order'
 
 include 'order-core'
+include 'order-rabbit-consumer'
+
