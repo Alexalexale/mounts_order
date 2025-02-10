@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: order
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    validation-query: select 1 from dual
+    connection-test-query: select 1 from dual
+    test-on-borrow: true
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: REFUNDCALCUBR
+    password: ps654321
+    hikari:
+      maximum-pool-size: 20
+      keepaliveTime: 60000
+      maxLifetime: 28800000
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddl-auto: create
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 42500
+      circuitBreaker:
+        requestVolumeThreshold: 10
+        enabled: true

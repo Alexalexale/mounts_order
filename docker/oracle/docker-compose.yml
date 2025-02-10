@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+
+  oracle-order:
+    container_name: oracle-order
+    image: repo.intranet.pags/customer-docker/circularization-letter/cl-database
+    privileged: true
+    environment:
+      - ORACLE_PDB=ORDER_ADM
+      - ORACLE_PASSWORD=ORDER_ADM
+      - ORACLE_CHARACTERSET=AL32UTF8
+    ports:
+      - "1521:1521"
+    volumes:
+      - ./init.sql:/container-entrypoint-startdb.d/init.sql
+    deploy:
+      resources:
+        limits:
+          memory: '5G'
+    network_mode: host
+
+  rabbitmq-order:
+    container_name: rabbitmq-order
+    image: rabbitmq:3.12-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_VHOST: /order
+    network_mode: host
