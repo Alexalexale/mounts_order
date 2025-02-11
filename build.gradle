@@ -27,6 +27,8 @@ repositories {
 
 ext {
     set('springCloudVersion', "2024.0.0")
+    set('ojdbc11Version', "23.6.0.24.10")
+    set('lombokVersion', "1.18.36")
 }
 
 dependencies {
@@ -71,7 +73,6 @@ subprojects {
 
     dependencies {
         /** SPRINGFRAMEWORK **/
-        implementation 'org.springframework.boot:spring-boot-starter-amqp'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -80,14 +81,14 @@ subprojects {
         testImplementation 'org.springframework.amqp:spring-rabbit-test'
 
         /** DB **/
-        implementation 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
+        implementation "com.oracle.database.jdbc:ojdbc11:${ojdbc11Version}"
 
         /** TEST **/
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
         /** LOMBOK **/
-        compileOnly 'org.projectlombok:lombok:1.18.36'
-        annotationProcessor 'org.projectlombok:lombok:1.18.36'
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     }
 

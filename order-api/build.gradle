@@ -11,10 +11,19 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springdocVersion', "2.8.3")
+}
+
 dependencies {
     implementation project(':order-core')
 
-    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    /** SPRINGDOC **/
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
+
+    /** HIBERNATE **/
+    implementation 'org.hibernate.validator:hibernate-validator'
+
 }
 
 test {

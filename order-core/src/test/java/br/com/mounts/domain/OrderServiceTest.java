@@ -68,7 +68,7 @@ class OrderServiceTest {
       }
 
       @Override
-      public List<ItemOrderGenerate> getItems() {
+      public List<? extends ItemOrderGenerate> getItems() {
         return items;
       }
     };

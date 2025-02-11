@@ -19,15 +19,3 @@ spring:
     hibernate:
       ddl-auto: none
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          strategy: SEMAPHORE
-          thread:
-            timeoutInMilliseconds: 42500
-      circuitBreaker:
-        requestVolumeThreshold: 10
-        enabled: true

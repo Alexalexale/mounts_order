@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
 @EntityScan(basePackages = "br.com.mounts.domain")
-public class OrderRabbitConsumer {
+public class OrderRabbitConsumerApplication {
 
   public static void main(final String[] args) {
-    SpringApplication.run(OrderRabbitConsumer.class, args);
+    SpringApplication.run(OrderRabbitConsumerApplication.class, args);
   }
 }

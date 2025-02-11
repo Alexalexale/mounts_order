@@ -61,16 +61,17 @@ public class Order {
       orphanRemoval = true)
   private Set<ItemOrder> items;
 
+  @Getter(value = AccessLevel.PUBLIC)
   @Column(name = "DAT_ORDER", nullable = false)
   private LocalDateTime datOrder;
 
   @CreatedDate
   @Column(name = "DAT_CREATION", nullable = false)
-  private LocalDateTime datCreation;
+  private LocalDateTime datCreation = LocalDateTime.now();
 
   @LastModifiedDate
   @Column(name = "DAT_UPDATE", nullable = false)
-  private LocalDateTime lastModifiedDate;
+  private LocalDateTime lastModifiedDate = LocalDateTime.now();
 
   public Set<ItemOrder> getItems() {
     return Set.copyOf(items);

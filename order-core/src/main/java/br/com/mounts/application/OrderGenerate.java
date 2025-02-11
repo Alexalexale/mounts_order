@@ -12,5 +12,5 @@ public interface OrderGenerate {
 
   LocalDateTime getDatOrder();
 
-  List<ItemOrderGenerate> getItems();
+  List<? extends ItemOrderGenerate> getItems();
 }
