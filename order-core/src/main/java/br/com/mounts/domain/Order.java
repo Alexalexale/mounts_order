@@ -2,11 +2,16 @@ package br.com.mounts.domain;
 
 import static java.math.BigDecimal.ZERO;
 import static java.math.RoundingMode.HALF_UP;
+import static lombok.AccessLevel.PUBLIC;
 
+import br.com.mounts.infrascruture.UUIDToStringConverter;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -40,16 +45,21 @@ public class Order {
   }
 
   @Id
-  @Getter(value = AccessLevel.PUBLIC)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID_ORDER")
+  Long id;
+
+  @Getter(value = PUBLIC)
   @Column(name = "IDT_ORDER", nullable = false)
   @EqualsAndHashCode.Include
   private UUID orderIdentify;
 
-  @Getter(value = AccessLevel.PUBLIC)
+  @Convert(converter = UUIDToStringConverter.class)
+  @Getter(value = PUBLIC)
   @Column(name = "IDT_CLIENT", nullable = false)
   private UUID clientIdentify;
 
-  @Getter(value = AccessLevel.PUBLIC)
+  @Getter(value = PUBLIC)
   @Column(name = "NUM_TOTAL_AMOUNT", nullable = false)
   private BigDecimal totalAmount;
 
@@ -61,7 +71,7 @@ public class Order {
       orphanRemoval = true)
   private Set<ItemOrder> items;
 
-  @Getter(value = AccessLevel.PUBLIC)
+  @Getter(value = PUBLIC)
   @Column(name = "DAT_ORDER", nullable = false)
   private LocalDateTime datOrder;
 

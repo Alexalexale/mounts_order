@@ -9,14 +9,11 @@ public class UUIDToStringConverter implements AttributeConverter<UUID, String> {
 
   @Override
   public String convertToDatabaseColumn(UUID uuid) {
-    return (uuid != null) ? uuid.toString().replace("-", "").toUpperCase() : null;
+    return (uuid != null) ? uuid.toString() : null;
   }
 
   @Override
   public UUID convertToEntityAttribute(String dbData) {
-    final var format = "$1-$2-$3-$4-$5";
-    final var regexUUID =
-        "([a-fA-F0-9]{8})([a-fA-F0-9]{4})([a-fA-F0-9]{4})([a-fA-F0-9]{4})([a-fA-F0-9]{12})";
-    return (dbData != null) ? UUID.fromString(dbData.replaceAll(regexUUID, format)) : null;
+    return (dbData != null) ? UUID.fromString(dbData) : null;
   }
 }

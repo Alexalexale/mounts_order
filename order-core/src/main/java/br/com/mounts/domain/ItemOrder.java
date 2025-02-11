@@ -2,8 +2,12 @@ package br.com.mounts.domain;
 
 import static java.math.MathContext.DECIMAL32;
 import static java.math.RoundingMode.HALF_UP;
+import static lombok.AccessLevel.MODULE;
+import static lombok.AccessLevel.PUBLIC;
 
+import br.com.mounts.infrascruture.UUIDToStringConverter;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +30,7 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @Table(name = "ITEM_ORDER")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.MODULE)
+@NoArgsConstructor(access = MODULE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ItemOrder {
 
@@ -44,29 +48,31 @@ public class ItemOrder {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "IDT_ITEM_ORDER")
+  @Column(name = "ID_ITEM_ORDER")
   Long id;
 
-  @Getter(value = AccessLevel.PUBLIC)
+  @Setter
+  @ManyToOne
+  @Getter(value = PUBLIC)
+  @JoinColumn(name = "ID_ORDER", nullable = false)
+  Order order;
+
+  @Convert(converter = UUIDToStringConverter.class)
+  @Getter(value = PUBLIC)
   @Column(name = "IDT_ITEM", nullable = false)
   @EqualsAndHashCode.Include
   UUID itemIdentify;
 
-  @Setter
-  @ManyToOne
-  @JoinColumn(name = "IDT_ORDER", nullable = false)
-  Order order;
-
-  @Getter(value = AccessLevel.PUBLIC)
+  @Getter(value = PUBLIC)
   @Column(name = "NUM_AMOUNT", nullable = false)
   @EqualsAndHashCode.Include
   BigDecimal amount;
 
-  @Getter(value = AccessLevel.PUBLIC)
+  @Getter(value = PUBLIC)
   @Column(name = "NUM_QTDE", nullable = false)
   Long qtde;
 
-  @Getter(value = AccessLevel.PUBLIC)
+  @Getter(value = PUBLIC)
   @Column(name = "NUM_TOTAL_AMOUNT", nullable = false)
   BigDecimal totalAmount;
 }
