@@ -30,8 +30,6 @@ class OrderResourceTest {
           .withUsername("testuser")
           .withPassword("testpass");
 
-  @Autowired private MockMvc mockMvc;
-
   @DynamicPropertySource
   static void setProperties(DynamicPropertyRegistry registry) {
     registry.add("spring.datasource.url", ORACLE_CONTAINER::getJdbcUrl);
@@ -41,6 +39,8 @@ class OrderResourceTest {
     registry.add("spring.sql.init.mode", () -> "always");
     registry.add("spring.jpa.defer-datasource-initialization", () -> "true");
   }
+
+  @Autowired private MockMvc mockMvc;
 
   @Test
   @DisplayName("Deve retornar todos os pedidos paginados")

@@ -14,7 +14,12 @@ repositories {
 dependencies {
     implementation project(':order-core')
 
+    /** RABBIT **/
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    /** TEST **/
+    testImplementation 'org.testcontainers:rabbitmq:1.20.4'
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
 }
 
 test {
