@@ -1,10 +1,10 @@
 package br.com.mounts.interfaces;
 
+import static br.com.mounts.infrascruture.OrderMediaType.APPLICATION_V1_PLUS_JSON_UTF8_VALUE;
 import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
 
 import br.com.mounts.application.OrderApiService;
-import br.com.mounts.infrascruture.OrderMediaType;
 import br.com.mounts.infrascruture.UUIDFacilitator;
 import br.com.mounts.interfaces.request.OrderFilterDTO;
 import br.com.mounts.interfaces.response.ItemOrderResponse;
@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(
     path = "/api/orders",
-    produces = OrderMediaType.APPLICATION_V1_PLUS_JSON_UTF8_VALUE,
-    consumes = OrderMediaType.APPLICATION_V1_PLUS_JSON_UTF8_VALUE)
+    produces = APPLICATION_V1_PLUS_JSON_UTF8_VALUE,
+    consumes = APPLICATION_V1_PLUS_JSON_UTF8_VALUE)
 @FieldDefaults(makeFinal = true, level = PRIVATE)
 @RequiredArgsConstructor(access = PACKAGE, onConstructor_ = @Autowired)
 @Tag(name = "OrderResource", description = "Endpoints para realizar consultas dos pedidos")
@@ -45,6 +45,12 @@ public class OrderResource {
   public ResponseEntity<Page<OrderResponse>> searchOrders(
       @ModelAttribute OrderFilterDTO filterDTO, Pageable pageable) {
     return ResponseEntity.ok(orderService.searchOrders(filterDTO, pageable));
+  }
+
+  @GetMapping("/{orderIdentify}")
+  public ResponseEntity<OrderResponse> findOrder(
+      @PathVariable final UUIDFacilitator orderIdentify) {
+    return ResponseEntity.ok(orderService.findOrder(orderIdentify));
   }
 
   @GetMapping("/{orderIdentify}/items")

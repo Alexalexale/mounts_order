@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
 plugins {
     id 'java'
     id 'org.springframework.boot'
@@ -15,6 +17,12 @@ ext {
     set('springdocVersion', "2.8.3")
 }
 
+dependencyManagement {
+    imports {
+        mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
 dependencies {
     implementation project(':order-core')
 
@@ -23,6 +31,9 @@ dependencies {
 
     /** HIBERNATE **/
     implementation 'org.hibernate.validator:hibernate-validator'
+
+    /** TEST **/
+    testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner:4.2.0'
 
 }
 

@@ -44,6 +44,13 @@ public class OrderApiService {
     return pageOrders.map(OrderResponse::ofOrder);
   }
 
+  public OrderResponse findOrder(UUIDFacilitator orderIdentify) {
+    return orderRepository
+        .findByOrderIdentify(orderIdentify.toUUID())
+        .map(OrderResponse::ofOrder)
+        .orElseThrow(() -> new OrderNotFoundException(orderIdentify.toUUID()));
+  }
+
   public Page<ItemOrderResponse> findPageItemsOrder(
       UUIDFacilitator orderIdentify, Pageable pageable) {
     final var order =

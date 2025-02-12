@@ -84,7 +84,10 @@ subprojects {
         implementation "com.oracle.database.jdbc:ojdbc11:${ojdbc11Version}"
 
         /** TEST **/
-        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+        testImplementation 'org.junit.platform:junit-platform-launcher'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.testcontainers:oracle-xe'
+        testImplementation 'org.testcontainers:junit-jupiter'
 
         /** LOMBOK **/
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
