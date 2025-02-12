@@ -1,8 +1,6 @@
 package br.com.mounts.interfaces;
 
 import static br.com.mounts.infrascruture.OrderMediaType.APPLICATION_V1_PLUS_JSON_UTF8_VALUE;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_CLASS;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,17 +12,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.containers.OracleContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Testcontainers
-@Sql(scripts = "/test-data.sql", executionPhase = BEFORE_TEST_CLASS)
 class OrderResourceTest {
 
   @Container
@@ -42,6 +38,8 @@ class OrderResourceTest {
     registry.add("spring.datasource.username", ORACLE_CONTAINER::getUsername);
     registry.add("spring.datasource.password", ORACLE_CONTAINER::getPassword);
     registry.add("spring.jpa.hibernate.ddl-auto", () -> "update");
+    registry.add("spring.sql.init.mode", () -> "always");
+    registry.add("spring.jpa.defer-datasource-initialization", () -> "true");
   }
 
   @Test
