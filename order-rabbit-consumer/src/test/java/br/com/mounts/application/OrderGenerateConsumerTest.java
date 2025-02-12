@@ -88,6 +88,6 @@ class OrderGenerateConsumerTest {
 
     final var order = orderRepository.findByOrderIdentify(orderIdentify).orElseThrow();
 
-    assertEquals(BigDecimal.valueOf(31, 6), order.getTotalAmount());
+    assertEquals(BigDecimal.valueOf(31.6), order.getTotalAmount());
   }
 }
