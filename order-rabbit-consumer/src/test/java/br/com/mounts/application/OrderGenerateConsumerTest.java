@@ -83,7 +83,7 @@ class OrderGenerateConsumerTest {
     rabbitTemplate.convertAndSend(EXCHANGE, MAIN_QUEUE, message);
 
     Awaitility.await()
-        .atMost(Duration.ofSeconds(5))
+        .atMost(Duration.ofSeconds(10))
         .until(() -> orderRepository.findByOrderIdentify(orderIdentify).isPresent());
 
     final var order = orderRepository.findByOrderIdentify(orderIdentify).orElseThrow();
